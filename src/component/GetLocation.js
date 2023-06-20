@@ -1,31 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const GetLocation = () =>{
 
     const [location, setLocation] = useState([]);
 
-    const DummyLocation = [{
+    const DummyLocation = [
+        {
         location : '강남구' ,
         x : "61",
         y: "125",
-    },{
+    },
+    {
         location : '서초구',
         x: '61',
-        y : '124'}
+        y : '124'
+    },
+        {
+        location : '강동구',
+        x: '62',
+        y: '126'
+    }
     ]
+
+
+    console.log(DummyLocation);
+
+
+
+    useEffect(() => {
+        setLocation(DummyLocation)
+    }, [])
+    
+    const handlerLocationSelect = (e) =>{
+        console.log(e);
+        setLocation(location(e.target.select));
+    }
+
 
 
     return(<>
 
     
-    <select>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
+    {/* to do select onChange handler */}
 
-    </select>
-    
+                <select onSelect={handlerLocationSelect}>
+                    {location.map(dl => { return(
+                        <option>{dl.location}</option>
+                    )})}
+                </select>
+  
     
     
     
