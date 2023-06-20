@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import CityData from './CityData';
 
 
 const GetWeather = () => {
@@ -15,15 +16,36 @@ const GetWeather = () => {
   const formattedDate = `${year}${month}${day}`;
 //
 
-  const [weather, setWeather] = useState([]);
+
+//todo
+//1. 로케이션 선택시 렌더링 이후 값이 저장되지 않음
+
+const [weather, setWeather] = useState([]);
+
+const [location, setLocation] = useState([]);
+
+const [selectedLocation, setSelectedLocation] = useState([]);
+
+const handlerLocationChange = (e) => {
+    setSelectedLocation(location.find(dl => dl.dong === e.target.value));
+  }
+
+const {x, y} = selectedLocation
+
 
 
   
 
 
 //데이터 받아오기
+
+useEffect(() => {
+  setLocation(CityData)
+}, [])
+
+
  useEffect(() => {
-    axios.get(`${WEATHER_API_URL}=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${formattedDate}&base_time=0500&nx=60&ny=125`)
+    axios.get(`${WEATHER_API_URL}=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${formattedDate}&base_time=0500&nx=${x}&ny=${y}`)
     .then(res => {
       setWeather(res.data.response.body.items.item);
     }
@@ -38,20 +60,15 @@ const GetWeather = () => {
 
   return (<>
 
+<select value={selectedLocation} onChange={handlerLocationChange}>
+                    {location.map(dl => { return (
+                        <option>{dl.dong}</option>
+                    )})}
+                </select>
+
+
 
   <h1>날씨</h1>
-
-
-
-
-
-{/* 
-  {weather.map(w => (
-  <li>
-    <span>{w.category}</span>
-    <span>{w.fcstValue}</span>
-  </li>
-))} */}
 
 <ul>
 {
@@ -78,7 +95,6 @@ weather.filter(w2 => w2.fcstDate === formattedDate && (w2.category === 'POP' ||
         skyLabel = '흐림'
       }
     }
-
 
 
   return (

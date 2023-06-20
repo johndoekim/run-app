@@ -1,15 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 import GetWeather from './component/GetWeather';
-import GetLocation from './component/GetLocation';
+import { Route } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 function App() {
   return (
   <>
 
-  
-<GetLocation/>  
+<Route path="/getweather" component={GetWeather}/>
+
+  <GetWeather/>
   
   </>
   );

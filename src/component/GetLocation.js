@@ -1,57 +1,32 @@
 import { useEffect, useState } from "react";
+import CityData from "./CityData";
+import GetWeather from "./GetWeather";
 
 const GetLocation = () =>{
 
-    const [location, setLocation] = useState([]);
-
-    const DummyLocation = [
-        {
-        location : '강남구' ,
-        x : "61",
-        y: "125",
-    },
-    {
-        location : '서초구',
-        x: '61',
-        y : '124'
-    },
-        {
-        location : '강동구',
-        x: '62',
-        y: '126'
-    }
-    ]
-
-
-    console.log(DummyLocation);
-
-
-
     useEffect(() => {
-        setLocation(DummyLocation)
+        setLocation(CityData)
     }, [])
     
-    const handlerLocationSelect = (e) =>{
-        console.log(e);
-        setLocation(location(e.target.select));
-    }
 
+    const [location, setLocation] = useState([]);
+    const [selectedLocation, setSelectedLocation] = useState([]);
+    
+
+    const handlerLocationChange = (e) => {
+        setSelectedLocation(location.find(dl => dl.dong === e.target.value));
+      }
+      console.log(selectedLocation)
 
 
     return(<>
-
-    
-    {/* to do select onChange handler */}
-
-                <select onSelect={handlerLocationSelect}>
+                <select value={selectedLocation} onChange={handlerLocationChange}>
                     {location.map(dl => { return(
-                        <option>{dl.location}</option>
+                        <option>{dl.dong}</option>
                     )})}
                 </select>
-  
-    
-    
-    
+
+                <GetWeather selectedLocation ={selectedLocation} />
     </>)
 }
 export default GetLocation;
