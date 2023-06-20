@@ -18,6 +18,10 @@ const GetWeather = () => {
   const [weather, setWeather] = useState([]);
 
 
+  
+
+
+//데이터 받아오기
  useEffect(() => {
     axios.get(`${WEATHER_API_URL}=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${formattedDate}&base_time=0500&nx=60&ny=125`)
     .then(res => {
@@ -34,7 +38,12 @@ const GetWeather = () => {
 
   return (<>
 
+
   <h1>날씨</h1>
+
+
+
+
 
 {/* 
   {weather.map(w => (
@@ -46,7 +55,7 @@ const GetWeather = () => {
 
 <ul>
 {
-weather.filter(w2 => w2.fcstDate === formattedDate && (w2.category === 'POP' || w2.category === 'PTY' ||
+weather.filter(w2 => w2.fcstDate === formattedDate && (w2.category === 'POP' || 
  w2.category === 'REH' || w2.category === 'TMP' || w2.category === 'SKY' ))
 .map((w2, idx) => {
   let categoryLabel = '';
@@ -54,8 +63,6 @@ weather.filter(w2 => w2.fcstDate === formattedDate && (w2.category === 'POP' || 
   
   if (w2.category === 'POP') {
     categoryLabel = '강수확률';
-  } else if (w2.category === 'PTY') {
-    categoryLabel = '강수형태';
   } else if (w2.category === 'REH') {
     categoryLabel = '습도';
   } else if (w2.category === 'TMP') {
@@ -77,7 +84,7 @@ weather.filter(w2 => w2.fcstDate === formattedDate && (w2.category === 'POP' || 
   return (
     <ul key={idx}>
       <li>시각: {w2.fcstTime}</li>
-    <li>{categoryLabel}: {skyLabel !== '' ? skyLabel : w2.fcstValue}</li>
+    <li>{categoryLabel}: {skyLabel !== '' ? skyLabel : w2.fcstValue} </li>
     </ul>
   );
 })
