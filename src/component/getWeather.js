@@ -4,21 +4,22 @@ import CityData from './CityData';
 
 
 const GetWeather = () => {
-//환경변수
+
+
+  //환경변수
   const SERVICE_KEY = process.env.REACT_APP_SERVICE_KEY;
   const WEATHER_API_URL = process.env.REACT_APP_WEATHER_API_URL;
 
-//날짜 설정
+
+  //날짜 설정
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, '0');
   const day = String(today.getDate()).padStart(2, '0');
   const formattedDate = `${year}${month}${day}`;
-//
+  //
 
 
-//todo
-//1. 로케이션 선택시 렌더링 이후 값이 저장되지 않음
 
 const [weather, setWeather] = useState([]);
 
@@ -26,43 +27,44 @@ const [location, setLocation] = useState([]);
 
 const [selectedLocation, setSelectedLocation] = useState([]);
 
+
 const handlerLocationChange = (e) => {
-    setSelectedLocation(location.find(dl => dl.dong === e.target.value));
+    setSelectedLocation(location.filter(selectedL => selectedL.dong === e.target.value)[0]);
   }
 
-const {x, y} = selectedLocation
 
+
+    //데이터 받아오기
+
+  useEffect(() => {
+    setLocation(CityData)
+      }, [])
+
+
+  useEffect(() => {
+      const {x, y} = selectedLocation;
+      axios.get(`${WEATHER_API_URL}=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${formattedDate}&base_time=0500&nx=${x}&ny=${y}`)
+      .then(res => {
+      console.log(res);
+      setWeather(res.data.response.body.items.item);
+      }
+      )
+        .catch(err => console.log(err));
+      }, [selectedLocation])
+
+      console.log(selectedLocation);
 
 
   
-
-
-//데이터 받아오기
-
-useEffect(() => {
-  setLocation(CityData)
-}, [])
-
-
- useEffect(() => {
-    axios.get(`${WEATHER_API_URL}=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${formattedDate}&base_time=0500&nx=${x}&ny=${y}`)
-    .then(res => {
-      setWeather(res.data.response.body.items.item);
-    }
-      )
-      
-    .catch(err => console.log(err));
-  }, [])
-
 
 
 
 
   return (<>
 
-<select value={selectedLocation} onChange={handlerLocationChange}>
-                    {location.map(dl => { return (
-                        <option>{dl.dong}</option>
+<select value={selectedLocation.dong} onChange={handlerLocationChange}>
+                    {location.map((selectLocation,idx) => { return (
+                        <option key={idx} value={selectLocation.dong}>{selectLocation.dong}</option>
                     )})}
                 </select>
 
@@ -99,7 +101,7 @@ weather.filter(w2 => w2.fcstDate === formattedDate && (w2.category === 'POP' ||
 
   return (
     <ul key={idx}>
-      <li>시각: {w2.fcstTime}</li>
+      <li>시간 : {w2.fcstTime} </li>
     <li>{categoryLabel}: {skyLabel !== '' ? skyLabel : w2.fcstValue} </li>
     </ul>
   );
