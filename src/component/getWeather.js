@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CityData from './CityData';
+import dayjs, { Dayjs } from 'dayjs';
+
 
 
 const GetWeather = () => {
@@ -12,14 +14,16 @@ const GetWeather = () => {
 
 
   //날짜 설정
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const day = String(today.getDate()).padStart(2, '0');
-  const formattedDate = `${year}${month}${day}`;
-  //
 
+  const nowToday = dayjs();
+  const {$y, $M, $D , $H} = nowToday;
+  const formattedMonth = String($M + 1).padStart(2, '0');
+  const formattedTime = String($H).padEnd(4, '0');
+  const formattedToday = `${$y}${formattedMonth}${$D}`
+  
+const [apiTime, setApiTime] = useState('');
 
+const [time, setTime] = useState([]);
 
 const [weather, setWeather] = useState([]);
 
@@ -28,13 +32,37 @@ const [location, setLocation] = useState([]);
 const [selectedLocation, setSelectedLocation] = useState([]);
 
 
+useEffect(() => {setTime(formattedTime)}, [])
+
+
 const handlerLocationChange = (e) => {
     setSelectedLocation(location.filter(selectedL => selectedL.dong === e.target.value)[0]);
   }
 
+//baseTime 설정
+useEffect(() => {
+const apiSetTimes = [
+{timeNum : 2.1, apiValue : '0200'},
+{timeNum : 5.1, apiValue : '0500'},
+{timeNum : 8.1, apiValue : '0800'},
+{timeNum : 11.1, apiValue : '1100'},
+{timeNum : 14.1, apiValue : '1400'},
+{timeNum : 17.1, apiValue : '1700'},
+{timeNum : 20.1, apiValue : '2100'},
+{timeNum : 23.1, apiValue : '2300'} ];
+
+for (let i=0; i<apiSetTimes.length; i++){
+  if ($H < apiSetTimes[i].timeNum){
+    setApiTime(apiSetTimes[i-1].apiValue);
+    break;
+  }
+}},[])
 
 
-    //데이터 받아오기
+
+
+
+  //데이터 받아오기
 
   useEffect(() => {
     setLocation(CityData)
@@ -43,7 +71,7 @@ const handlerLocationChange = (e) => {
 
   useEffect(() => {
       const {x, y} = selectedLocation;
-      axios.get(`${WEATHER_API_URL}=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${formattedDate}&base_time=0500&nx=${x}&ny=${y}`)
+      axios.get(`${WEATHER_API_URL}=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${formattedToday}&base_time=${apiTime}&nx=${x}&ny=${y}`)
       .then(res => {
       console.log(res);
       setWeather(res.data.response.body.items.item);
@@ -54,14 +82,13 @@ const handlerLocationChange = (e) => {
 
       console.log(selectedLocation);
 
-
   
-
-
 
 
   return (<>
 
+
+{/* 지역 선택 */}
 <select value={selectedLocation.dong} onChange={handlerLocationChange}>
                     {location.map((selectLocation,idx) => { return (
                         <option key={idx} value={selectLocation.dong}>{selectLocation.dong}</option>
@@ -72,10 +99,9 @@ const handlerLocationChange = (e) => {
 
   <h1>날씨</h1>
 
-<ul>
 {
-weather.filter(w2 => w2.fcstDate === formattedDate && (w2.category === 'POP' || 
- w2.category === 'REH' || w2.category === 'TMP' || w2.category === 'SKY' ))
+weather.filter(w2 => w2.fcstDate === formattedToday && (w2.fcstTime === time || w2.fcstTime === String(Number(time) + 100)) && 
+(w2.category === 'POP' ||  w2.category === 'REH' || w2.category === 'TMP' || w2.category === 'SKY' || w2.category === 'PCP' ))
 .map((w2, idx) => {
   let categoryLabel = '';
   let skyLabel = '';
@@ -86,6 +112,8 @@ weather.filter(w2 => w2.fcstDate === formattedDate && (w2.category === 'POP' ||
     categoryLabel = '습도';
   } else if (w2.category === 'TMP') {
     categoryLabel = '기온';
+  } else if (w2.category === 'PCP'){
+    categoryLabel = '강수량';
   } else if (w2.category === 'SKY') {
     categoryLabel = '하늘상태'
     if(w2.fcstValue === '1'){
@@ -104,12 +132,16 @@ weather.filter(w2 => w2.fcstDate === formattedDate && (w2.category === 'POP' ||
       <li>시간 : {w2.fcstTime} </li>
     <li>{categoryLabel}: {skyLabel !== '' ? skyLabel : w2.fcstValue} </li>
     </ul>
+
+
+
+
+
   );
 })
 
 }
 
-</ul>
   
 
 
