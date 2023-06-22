@@ -15,8 +15,8 @@ function App() {
 
 
 
-<PostList/>
 
+<GetWeather/>
   
   
   </>

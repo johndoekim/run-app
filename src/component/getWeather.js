@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CityData from './CityData';
 import dayjs, { Dayjs } from 'dayjs';
+import { number } from 'yargs';
 
 
 
@@ -19,9 +20,22 @@ const GetWeather = () => {
   const nowToday = dayjs();
   const {$y, $M, $D , $H, $m} = nowToday;
   const formattedMonth = String($M + 1).padStart(2, '0');
-  const formattedToday = `${$y}${formattedMonth}${$D}`
-  const formattedTime = (0< $H < 10) ? `0${$H}00`: String($H).padStart(4, '0');
+  const apiFormattedToday = ($H < 2 || ($H === 2 && $m <=9)) ? `${$y}${formattedMonth}${$D -1}`
+  : `${$y}${formattedMonth}${$D}`
 
+  const formattedToday= `${$y}${formattedMonth}${$D}`
+
+
+
+  const formattedTime = ($H) => {
+    if ($H === 0) {
+      return "0000";
+    } else if ($H >= 1 && $H <= 9) {
+      return `0${$H}00`;
+    } else if ($H >= 10 && $H <= 23) {
+      return `${$H}00`;
+    }
+  }
 
 const [apiTime, setApiTime] = useState('');
 
@@ -33,7 +47,7 @@ const [location, setLocation] = useState([]);
 
 const [selectedLocation, setSelectedLocation] = useState([]);
 
-useEffect(() => {setTime(formattedTime)}, [])
+useEffect(() => {setTime(formattedTime($H))}, [])
 
 
 const handlerLocationChange = (e) => {
@@ -43,6 +57,7 @@ const handlerLocationChange = (e) => {
 // //baseTime 설정
 useEffect(() => {
 const apiSetTimes = [
+{tineNum : 209, apiValue : '2300'},
 {timeNum : 211, apiValue : '0200'},
 {timeNum : 511, apiValue : '0500'},
 {timeNum : 811, apiValue : '0800'},
@@ -50,7 +65,8 @@ const apiSetTimes = [
 {timeNum : 1411, apiValue : '1400'},
 {timeNum : 1711, apiValue : '1700'},
 {timeNum : 2011, apiValue : '2100'},
-{timeNum : 2311, apiValue : '2300'} ];
+{timeNum : 2311, apiValue : '2300'},
+{timeNum : 2359, apiValue : '2300'} ];
 
 for (let i=0; i<apiSetTimes.length; i++){
   if (`${$H}${$m}` < apiSetTimes[i].timeNum){
@@ -58,6 +74,9 @@ for (let i=0; i<apiSetTimes.length; i++){
     break;
   }
 }},[])
+
+//00시 문제 발생
+
 
 
 
@@ -72,7 +91,7 @@ for (let i=0; i<apiSetTimes.length; i++){
 
   useEffect(() => {
       const {x, y} = selectedLocation;
-      axios.get(`${WEATHER_API_URL}=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${formattedToday}&base_time=${apiTime}&nx=${x}&ny=${y}`)
+      axios.get(`${WEATHER_API_URL}=${SERVICE_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${apiFormattedToday}&base_time=${apiTime}&nx=${x}&ny=${y}`)
       .then(res => {
       console.log(res);
       setWeather(res.data.response.body.items.item);
@@ -83,9 +102,7 @@ for (let i=0; i<apiSetTimes.length; i++){
 
       console.log(selectedLocation);
 
-
-
-  return (<>
+return (<>
 
 
 {/* 지역 선택 */}
@@ -106,6 +123,7 @@ weather.filter(w2 => w2.fcstDate === formattedToday &&
 .map((w2, idx) => {
   let categoryLabel = '';
   let skyLabel = '';
+
   
   if (w2.category === 'POP') {
     categoryLabel = '강수확률';
@@ -134,7 +152,7 @@ weather.filter(w2 => w2.fcstDate === formattedToday &&
       <li>시간 : {w2.fcstTime} </li>
     <li>{categoryLabel}: {skyLabel !== '' ? skyLabel : w2.fcstValue} </li>
     </ul>
-
+  
 
 
 
