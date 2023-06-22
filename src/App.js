@@ -12,8 +12,10 @@ function App() {
 <Route path="/getweather" component={GetWeather}/>
 
 
-<PostList/>
+<hr/>
 
+
+<PostDetail/>
 
   
   

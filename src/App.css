@@ -26,42 +26,34 @@ td {
 
 
 .boardwrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   width: 800px;
-  height: 800px;
-  left: 50%;
-  position: absolute;
-  left: 50%;
-  top: 53%;
-  transform: translate(-50%, -50%);
-  box-sizing: border-box;
-}
+  margin: 0 auto;
 
-.boardheader {
-  height: 70px;
-  padding: 10px;
-  border-bottom: 1px solid black;
-
- .title {
-    height: 40px;
+  .detailtitle {
+    height: 50px;
     display: flex;
     align-items: center;
-    font-size: 22px;
+    font-size: 14px;
+    margin-left: 15px;
   }
 
   .nickname {
     display: flex;
     font-size: 12px;
     margin-top: 5px;
+    margin-left: 10px;
     color: #959595;
     font-weight: 700;
+  }
+
+  .date {
+    display: flex;
+    font-size: 12px;
   }
 }
 
 .boardcontent {
-  height: 240px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
