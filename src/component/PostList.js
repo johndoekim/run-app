@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link   } from "react-router-dom"
 
-
-export default function PostList(){
+export default function PostList({}){
 
     const DB_API_URL = process.env.REACT_APP_DB_API_URL;
 
@@ -22,6 +22,8 @@ export default function PostList(){
         })
     }, [])
 
+
+console.log(postsData)
 
 
 
@@ -49,7 +51,7 @@ export default function PostList(){
                     {
                             postsData.length === 0 && (
                                 <tr>
-                                    <td colSpan="4">일치하는 데이터가 없습니다.</td>
+                                    <td colSpan="4">게시글이 존재하지 않습니다.</td>
                                 </tr>
                             )
                         }
@@ -59,7 +61,9 @@ export default function PostList(){
                             return(
                         <tr key={post.post_idx}>
                             <td>{post.post_idx}</td>
-                            <td className="title">{post.title}</td>
+                            <td className="title">
+                                <Link to ={`/posts/${post.post_idx}`}>{post.title}</Link>
+                                </td>
                             <td>{post.nickname}</td>
                             <td>{post.created_at}</td>
                         </tr>
