@@ -1,38 +1,74 @@
-.App {
-  text-align: center;
+.container {
+  width: 800px;
+  margin: 0 auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.posts_list {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+thead {
+  background-color: #eeeeee;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+th,
+td {
+  padding: 10px;
+  border: 1px solid #dddddd;
+}
+
+.title {
+  font-size: 18px;
+}
+
+
+
+
+.boardwrap {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  width: 800px;
+  height: 800px;
+  left: 50%;
+  position: absolute;
+  left: 50%;
+  top: 53%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
 }
 
-.App-link {
-  color: #61dafb;
+.boardheader {
+  height: 70px;
+  padding: 10px;
+  border-bottom: 1px solid black;
+
+ .title {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+  }
+
+  .nickname {
+    display: flex;
+    font-size: 12px;
+    margin-top: 5px;
+    color: #959595;
+    font-weight: 700;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.boardcontent {
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  margin-top: 10px;
+  border-bottom: 1px solid black;
+  letter-spacing: 2px;
+
+
 }
