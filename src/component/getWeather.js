@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CityData from './CityData';
 import dayjs, { Dayjs } from 'dayjs';
-import { number } from 'yargs';
 
 
 
