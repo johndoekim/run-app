@@ -16,10 +16,12 @@ const GetWeather = () => {
   //날짜 설정
 
   const nowToday = dayjs();
-  const {$y, $M, $D , $H} = nowToday;
+  const {$y, $M, $D , $H, $m} = nowToday;
   const formattedMonth = String($M + 1).padStart(2, '0');
-  const formattedTime = String($H).padEnd(4, '0');
   const formattedToday = `${$y}${formattedMonth}${$D}`
+  const formattedTime = ($H < 10) ? `0${$H}00`: String($H).padStart(4, '0');
+
+
   
 const [apiTime, setApiTime] = useState('');
 
@@ -31,7 +33,6 @@ const [location, setLocation] = useState([]);
 
 const [selectedLocation, setSelectedLocation] = useState([]);
 
-
 useEffect(() => {setTime(formattedTime)}, [])
 
 
@@ -39,20 +40,20 @@ const handlerLocationChange = (e) => {
     setSelectedLocation(location.filter(selectedL => selectedL.dong === e.target.value)[0]);
   }
 
-//baseTime 설정
+// //baseTime 설정
 useEffect(() => {
 const apiSetTimes = [
-{timeNum : 2.1, apiValue : '0200'},
-{timeNum : 5.1, apiValue : '0500'},
-{timeNum : 8.1, apiValue : '0800'},
-{timeNum : 11.1, apiValue : '1100'},
-{timeNum : 14.1, apiValue : '1400'},
-{timeNum : 17.1, apiValue : '1700'},
-{timeNum : 20.1, apiValue : '2100'},
-{timeNum : 23.1, apiValue : '2300'} ];
+{timeNum : 211, apiValue : '0200'},
+{timeNum : 511, apiValue : '0500'},
+{timeNum : 811, apiValue : '0800'},
+{timeNum : 1111, apiValue : '1100'},
+{timeNum : 1411, apiValue : '1400'},
+{timeNum : 1711, apiValue : '1700'},
+{timeNum : 2011, apiValue : '2100'},
+{timeNum : 2311, apiValue : '2300'} ];
 
 for (let i=0; i<apiSetTimes.length; i++){
-  if ($H < apiSetTimes[i].timeNum){
+  if (`${$H}${$m}` < apiSetTimes[i].timeNum){
     setApiTime(apiSetTimes[i-1].apiValue);
     break;
   }
@@ -82,7 +83,6 @@ for (let i=0; i<apiSetTimes.length; i++){
 
       console.log(selectedLocation);
 
-  
 
 
   return (<>
@@ -100,7 +100,8 @@ for (let i=0; i<apiSetTimes.length; i++){
   <h1>날씨</h1>
 
 {
-weather.filter(w2 => w2.fcstDate === formattedToday && (w2.fcstTime === time || w2.fcstTime === String(Number(time) + 100)) && 
+weather.filter(w2 => w2.fcstDate === formattedToday && 
+(w2.fcstTime === time || w2.fcstTime === String(Number(time) + 100)) && 
 (w2.category === 'POP' ||  w2.category === 'REH' || w2.category === 'TMP' || w2.category === 'SKY' || w2.category === 'PCP' ))
 .map((w2, idx) => {
   let categoryLabel = '';
@@ -128,6 +129,7 @@ weather.filter(w2 => w2.fcstDate === formattedToday && (w2.fcstTime === time || 
 
 
   return (
+    
     <ul key={idx}>
       <li>시간 : {w2.fcstTime} </li>
     <li>{categoryLabel}: {skyLabel !== '' ? skyLabel : w2.fcstValue} </li>
