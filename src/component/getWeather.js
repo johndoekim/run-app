@@ -19,7 +19,7 @@ const GetWeather = () => {
   const {$y, $M, $D , $H, $m} = nowToday;
   const formattedMonth = String($M + 1).padStart(2, '0');
   const formattedToday = `${$y}${formattedMonth}${$D}`
-  const formattedTime = ($H < 10) ? `0${$H}00`: String($H).padStart(4, '0');
+  const formattedTime = (0< $H < 10) ? `0${$H}00`: String($H).padStart(4, '0');
 
 
   
