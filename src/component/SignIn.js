@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { TbDoorEnter } from "react-icons/tb";
 
@@ -5,7 +6,11 @@ import { TbDoorEnter } from "react-icons/tb";
 
 
 
+
 const SignIn = () => {
+
+    const DB_API_URL = process.env.REACT_APP_DB_API_URL;
+
 
 
 
@@ -31,7 +36,9 @@ const SignIn = () => {
     const handlerFormSubmit = (e) =>
     {
         e.preventDefault();
-
+        axios.post(`${DB_API_URL}/login`, loginData)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
 
 
