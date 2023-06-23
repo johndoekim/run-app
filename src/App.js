@@ -5,6 +5,7 @@ import PostList from './component/PostList';
 import PostDetail from './component/PostDetail';
 import SignUp from './component/SignUp';
 import SignIn from './component/SignIn';
+import Write from './component/Write';
 
 function App() {
   return (
@@ -19,9 +20,7 @@ function App() {
 
 
 
-<SignIn/>  
-
-
+<Write/>
   
   </>
   );
