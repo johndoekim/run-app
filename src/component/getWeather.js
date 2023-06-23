@@ -36,6 +36,8 @@ const GetWeather = () => {
     }
   }
 
+console.log(typeof formattedTime($H));
+
 const [apiTime, setApiTime] = useState('');
 
 const [time, setTime] = useState([]);
@@ -56,7 +58,6 @@ const handlerLocationChange = (e) => {
 // //baseTime 설정
 useEffect(() => {
 const apiSetTimes = [
-{tineNum : 209, apiValue : '2300'},
 {timeNum : 211, apiValue : '0200'},
 {timeNum : 511, apiValue : '0500'},
 {timeNum : 811, apiValue : '0800'},
@@ -65,7 +66,8 @@ const apiSetTimes = [
 {timeNum : 1711, apiValue : '1700'},
 {timeNum : 2011, apiValue : '2100'},
 {timeNum : 2311, apiValue : '2300'},
-{timeNum : 2359, apiValue : '2300'} ];
+{timeNum : 2359, apiValue : '2300'},
+{tineNum : 209, apiValue : '2300'} ];
 
 for (let i=0; i<apiSetTimes.length; i++){
   if (`${$H}${$m}` < apiSetTimes[i].timeNum){
@@ -100,6 +102,7 @@ for (let i=0; i<apiSetTimes.length; i++){
       }, [selectedLocation])
 
       console.log(selectedLocation);
+
 
 return (<>
 

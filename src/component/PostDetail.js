@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FcList } from "react-icons/fc";
+import { FaClipboardList } from "react-icons/fa";
+
 
 const PostDetail = ({match, history}) => {
 
@@ -44,7 +45,7 @@ const handlerBackList = (e) => {
   </div>
 
   <button className="backbutton"onClick={handlerBackList}>
-    <FcList size={20}/>
+    <FaClipboardList size={25}/>
   </button>
 </div>
 
