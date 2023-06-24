@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { TbDoorEnter } from "react-icons/tb";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
 
@@ -11,8 +12,7 @@ const SignIn = () => {
 
     const DB_API_URL = process.env.REACT_APP_DB_API_URL;
 
-
-
+    const history = useHistory();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -37,7 +37,17 @@ const SignIn = () => {
     {
         e.preventDefault();
         axios.post(`${DB_API_URL}/login`, loginData)
-        .then(res => console.log(res))
+        .then(res => {
+    
+            if (res.data.success === true){
+            sessionStorage.setItem("JWT-TOKEN", res.data.body)
+            alert('로그인 성공');
+            history.push('/posts');}
+
+            else if (res.data.success === false){
+                alert('로그인이 실패하였습니다')}
+
+    })
         .catch(err => console.log(err))
     }
 

@@ -17,8 +17,12 @@ function App() {
 
 <Route path="/posts" component={PostList} exact={true}/>
 
+<Route path="/Signin" component={SignIn}/>
+
+<Route path="/Signup" component={SignUp}/>
 
 
+<SignUp/>
 
 <SignIn/>
 

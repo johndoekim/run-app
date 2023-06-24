@@ -28,6 +28,16 @@ const handlerBackList = (e) => {
   history.push('/posts')
 }
 
+const handlerEditPost = () =>{
+
+  
+}
+
+const handlerDeletePost = () =>{
+
+
+}
+
 
  
   return (
@@ -47,6 +57,11 @@ const handlerBackList = (e) => {
   <button className="backbutton"onClick={handlerBackList}>
     <FaClipboardList size={25}/>
   </button>
+
+  <button className="editbutton" onClick={handlerEditPost}>수정</button>
+
+
+  <button className="deletebutton" onClick={handlerDeletePost}>삭제</button>
 </div>
 
     
