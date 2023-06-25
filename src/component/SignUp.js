@@ -1,9 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
+
 
 
 const SignUp = () => {
+
+
+    const history = useHistory();
+
 
     //환경변수
     const SIGNUP_API_URL = process.env.REACT_APP_SIGNUP_API_URL;
@@ -42,7 +49,12 @@ const SignUp = () => {
     const handlerSignUpSummit = (e) =>
     {       e.preventDefault()
             axios.post(`${SIGNUP_API_URL}/signup`, signUpData) 
-            .then((response) => console.log(response))
+            .then((res) => {
+                console.log(res)
+                alert('회원 가입에 성공하셨습니다')
+                history.push('/signin')
+            
+            })
             .catch(err => console.log(err))
     }
 

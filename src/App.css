@@ -1,6 +1,7 @@
 .container {
   width: 800px;
   margin: 0 auto;
+  
 }
 
 .posts_list {
@@ -24,10 +25,34 @@ td {
 
 
 
+.card {
+  width: 750px;
+  height: 500px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.input-container-title {
+  margin-bottom: 10px;
+}
+
+.input-container-content {
+  height: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+}
+
+
 
 .boardwrap {
   width: 800px;
-  margin: 0 auto;
+  margin: 0 auto;}
 
   .detailtitle {
     height: 50px;
@@ -52,7 +77,7 @@ td {
     margin-left : 15px;
   }
 
-}
+
 
 .boardcontent {
   height: 300px;

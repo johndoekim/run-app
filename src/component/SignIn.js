@@ -41,8 +41,11 @@ const SignIn = () => {
     
             if (res.data.success === true){
             sessionStorage.setItem("JWT-TOKEN", res.data.body)
+            sessionStorage.setItem("user_idx", res.data.idx)
+            sessionStorage.setItem("nickname", res.data.nickname)
             alert('로그인 성공');
-            history.push('/posts');}
+            history.push('/posts');
+            console.log(res)}
 
             else if (res.data.success === false){
                 alert('로그인이 실패하였습니다')}
