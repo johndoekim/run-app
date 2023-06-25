@@ -65,9 +65,9 @@ const handlerLogout = e => {
 
 
 
+<PostList/>
+<GetWeather/>
 
-<hr/>
-<Write/>
 
   </>
   );

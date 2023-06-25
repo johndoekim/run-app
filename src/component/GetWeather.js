@@ -66,17 +66,21 @@ const apiSetTimes = [
 {timeNum : 1711, apiValue : '1700'},
 {timeNum : 2011, apiValue : '2100'},
 {timeNum : 2311, apiValue : '2300'},
-{timeNum : 2359, apiValue : '2300'},
-{tineNum : 209, apiValue : '2300'} ];
+{timeNum : 2359, apiValue : '2300'}
+];
 
 for (let i=0; i<apiSetTimes.length; i++){
   if (`${$H}${$m}` < apiSetTimes[i].timeNum){
-    setApiTime(apiSetTimes[i-1].apiValue);
+    setApiTime(apiSetTimes[i].apiValue);
     break;
   }
-}},[])
+}
+if (apiFormattedToday !== formattedToday) {
+  setApiTime('2300');}
 
-//00시 문제 발생
+
+},[])
+
 
 
 
@@ -115,9 +119,6 @@ return (<>
                 </select>
 
 
-
-  <h1>날씨</h1>
-
 {
 weather.filter(w2 => w2.fcstDate === formattedToday && 
 (w2.fcstTime === time || w2.fcstTime === String(Number(time) + 100)) && 
@@ -149,15 +150,15 @@ weather.filter(w2 => w2.fcstDate === formattedToday &&
 
 
   return (
-    
+  <div className='weatherwrap'>
     <ul key={idx}>
+      <li>날짜 : {w2.fcstDate}</li>
       <li>시간 : {w2.fcstTime} </li>
     <li>{categoryLabel}: {skyLabel !== '' ? skyLabel : w2.fcstValue} </li>
     </ul>
+
+  </div>
   
-
-
-
 
   );
 })

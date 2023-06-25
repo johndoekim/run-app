@@ -86,7 +86,7 @@ const handlerDeletePost = (e) => {
   </div>
   <div className="nickname">
     작성자: {postsData.nickname}
-    <span className="date">작성일: {postsData.created_at}</span>
+    <span className="date">작성일:{postsData.created_at}</span>
   </div>
   <div className="boardcontent">
     <p>{postsData.content}</p>
