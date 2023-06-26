@@ -9,6 +9,8 @@ import Write from './component/Write';
 import { useEffect, useState } from 'react';
 import { SlLogin, SlLogout, SlNote, SlBookOpen} from "react-icons/sl";
 import { FaPlus } from "react-icons/fa";
+import PostEdit from './component/PostEdit';
+import PrivateRoute from './component/PrivateRoute';
 
 
 
@@ -89,7 +91,7 @@ const handlerLogout = e => {
 
 <Route path="/getweather" component={GetWeather}/>
 
-<Route path="/posts/:post_idx" component={PostDetail}/>
+<Route path="/posts/:post_idx" component={PostDetail} exact={true}/>
 
 <Route path="/posts" component={PostList} exact={true}/>
 
@@ -97,7 +99,9 @@ const handlerLogout = e => {
 
 <Route path="/signup" component={SignUp}/>
 
-<Route path="/write" component={Write}/>
+<PrivateRoute path="/write" component={Write}/>
+
+<PrivateRoute path="/posts/:post_idx/edit" component={PostEdit}/>
 
 
 

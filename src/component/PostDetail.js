@@ -18,15 +18,17 @@ const PostDetail = ({match, history}) => {
 
 
   useEffect(() => {
-    axios.get(`${DB_API_URL}/posts/${post_idx}`)
+    axios.get(`${DB_API_URL}/posts/${post_idx}`,{headers : {Authorization : sessionStorage.getItem('JWT-TOKEN')}})
     .then(res => {
       console.log(res);
       const jsonPostsData = JSON.parse(res.data.body);
       setPostsData(jsonPostsData)
     })
     .catch(err => 
-      console.log(err));
+      console.log(err))
   },[]);
+
+  console.log(postsData);
 
 
   useEffect(() => {
@@ -45,10 +47,6 @@ const handlerBackList = (e) => {
   history.push('/posts')
 }
 
-const handlerEditPost = () =>{
-
-  
-}
 
 const config = {
   headers: {
@@ -78,6 +76,16 @@ const handlerDeletePost = (e) => {
     })
     .catch(err => console.log(err));
 };
+
+
+const handlerEditPost = (e) => {
+  e.preventDefault();
+  history.push(`${post_idx}/edit`);  
+}
+
+
+
+
 
  
   return (
