@@ -64,7 +64,7 @@ const SignUp = () => {
 
     return(
         <>
-        <form onSubmit={handlerSignUpSummit}>
+        <form className="sign-card" onSubmit={handlerSignUpSummit}>
             <input type="text" value={username} placeholder="ID" onChange={handlerUsernameChange}></input>
 
             <input type="password" value = {password} placeholder="비밀번호" onChange={handlerPasswordChange}></input>

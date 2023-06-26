@@ -44,7 +44,7 @@ const SignIn = () => {
             sessionStorage.setItem("user_idx", res.data.idx)
             sessionStorage.setItem("nickname", res.data.nickname)
             alert('로그인 성공');
-            history.push('/posts');
+            history.push('/')
             console.log(res)}
 
             else if (res.data.success === false){
@@ -57,7 +57,7 @@ const SignIn = () => {
 
     return(<>
 
-    <form onSubmit={handlerFormSubmit}>
+    <form className="sign-card" onSubmit={handlerFormSubmit}>
 
 
         <input type="text" value={username} placeholder="ID" onChange={handlerUsernameChange}></input>

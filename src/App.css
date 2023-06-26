@@ -94,6 +94,153 @@ td {
   margin-top: 10px;
   border-bottom: 1px solid black;
   letter-spacing: 2px;
+}
+
+.boardwrap button {
+  display: inline-block;
+  margin-top: 8px;
+  margin-right: 8px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.boardwrap button:focus {
+  outline: none;
+}
+
+.boardwrap button:hover {
+  background-color: #0056b3;
+}
 
 
+
+
+
+
+
+.sign-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  position: fixed;
+  top: 80px;
+  left: 16px;
+  z-index: 9999;
+  width: 300px;
+}
+
+.sign-card input {
+  display: block;
+  margin-bottom: 8px;
+  padding: 8px;
+  width: 95%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.sign-card button {
+  display: block;
+  margin-top: 8px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sign-card button:focus {
+  outline: none;
+}
+
+.sign-card button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+.weather-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9999;
+}
+
+.weather-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.weather-card li {
+  margin-bottom: 8px;
+}
+
+.weather-card li:last-child {
+  margin-bottom: 0;
+}
+
+.weather-card .category-label {
+  font-weight: bold;
+}
+
+.weather-card .sky-label {
+  margin-left: 8px;
+  font-style: italic;
+}
+
+.weather-card .sky-label.clear {
+  color: blue;
+}
+
+.weather-card .sky-label.cloudy {
+  color: gray;
+}
+
+.weather-card .sky-label.overcast {
+  color: darkgray;
+}
+
+.location-select {
+  margin-bottom: 16px;
+  
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.user-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.user-menu-item span {
+  display: none;
+  margin-left: 4px;
+}
+
+.user-menu-item:hover span {
+  display: inline-block;
+}
+.user-menu-item svg {
+  vertical-align: middle;
 }

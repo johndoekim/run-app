@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaClipboardList } from "react-icons/fa";
 import { MdDeleteForever, MdEditDocument } from "react-icons/md";
+import { SlBookOpen } from "react-icons/sl";
+
 
 
 
@@ -92,19 +94,17 @@ const handlerDeletePost = (e) => {
     <p>{postsData.content}</p>
   </div>
 
-  <button className="backbutton"onClick={handlerBackList}>
-    <FaClipboardList size={25}/>
+  <button onClick={handlerBackList}>
+    <SlBookOpen size={25}/>
   </button>
 
-
-  
   {isOwned && (
   <>
-    <button className="editbutton" onClick={handlerEditPost}>
+    <button onClick={handlerEditPost}>
       <MdEditDocument size={25} />
     </button>
 
-    <button className="deletebutton" onClick={handlerDeletePost}>
+    <button onClick={handlerDeletePost}>
       <MdDeleteForever size={25} />
     </button>
   </>

@@ -7,6 +7,10 @@ import SignUp from './component/SignUp';
 import SignIn from './component/SignIn';
 import Write from './component/Write';
 import { useEffect, useState } from 'react';
+import { SlLogin, SlLogout, SlNote, SlBookOpen} from "react-icons/sl";
+import { FaPlus } from "react-icons/fa";
+
+
 
 function App({history}) {
 
@@ -42,14 +46,46 @@ const handlerLogout = e => {
   return (
   <>
 
+
+
 {isLogin ? (
-  <span onClick={handlerLogout}>로그아웃   {showNickname}님 접속중입니다.</span> 
-) : (
-  <>
-    <Link to="/signin">로그인</Link>
-    <Link to="/signup">회원가입</Link>
-  </>
-)}
+      <div className="user-menu">
+        <span className="user-menu-item" onClick={handlerLogout}>
+          <SlLogout size={25} />
+          <span>로그아웃</span>
+        </span>
+        <span className="user-menu-item">
+          <Link to="/write">
+            <SlNote size={25} />
+            <span>글쓰기</span>
+          </Link>
+        </span>
+        <span>{showNickname}님 접속중입니다.</span>
+      </div>
+    ) : (
+      <div className="user-menu">
+        <span className="user-menu-item">
+          <Link to="/signin">
+            <SlLogin size={25} />
+            <span>로그인</span>
+          </Link>
+        </span>
+        <span className="user-menu-item">
+          <Link to="/signup">
+            <FaPlus size={25} />
+            <span>회원가입</span>
+          </Link>
+        </span>
+      </div>
+    )
+    }
+    
+<span className="user-menu-item">
+          <Link to="/posts">
+            <SlBookOpen size={25} />
+            <span>글 목록</span>
+          </Link>
+        </span>
 
 <Route path="/getweather" component={GetWeather}/>
 
@@ -65,7 +101,6 @@ const handlerLogout = e => {
 
 
 
-<PostList/>
 <GetWeather/>
 
 
