@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { FaPencil } from "react-icons/fa6";
 import axios from "axios";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -10,23 +10,23 @@ const Write = () => {
 
     const history = useHistory();
 
-    const inputFiles = useRef();
+    // const inputFiles = useRef();
 
-    const MAX_FILE_SIZE = 2 * 1024 * 1024;
+    // const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
-    const MAX_FILE_COUNT = 1;
+    // const MAX_FILE_COUNT = 1;
 
     const [title, setTitle] = useState('');
 
     const [content, setContent] = useState('');
 
-    const [image, setImage] = useState([]);
+    // const [image, setImage] = useState([]);
 
-    const invalidFile = msg => {
-        alert(msg);
-        inputFiles.current.value = '';
-        setImage([]);
-      };
+    // const invalidFile = msg => {
+    //     alert(msg);
+    //     inputFiles.current.value = '';
+    //     setImage([]);
+    //   };
 
 
     const handlerTtileChange = (e) =>
@@ -35,31 +35,44 @@ const Write = () => {
     const handlerContentChange = (e) =>
     {setContent(e.target.value)}
 
-    const handlerChangeFile = e => {
-        const files = e.target.files;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter' && e.target.tagName.toLowerCase() !== 'textarea') {
+        e.preventDefault();
+      }
+    };
+  
+  
+
+
+
+    // const handlerChangeFile = e => {
+    //     const files = e.target.files;
     
-        if (files.length > MAX_FILE_COUNT) {
-          invalidFile("이미지는 1개 까지 업로드가 가능합니다.");
-          return;
-        } 
-        for (let i = 0; i < files.length; i++) {
-          if (!files[i].type.match("image/.*")) {
-            invalidFile("이미지 파일만 업로드 가능합니다.");
-            return;
-          } else if (files[i].size > MAX_FILE_SIZE) {
-            invalidFile("이미지 크기는 2MB를 초과할 수 없습니다.");
-            return;
-          } 
-        }
+    //     if (files.length > MAX_FILE_COUNT) {
+    //       invalidFile("이미지는 1개 까지 업로드가 가능합니다.");
+    //       return;
+    //     } 
+    //     for (let i = 0; i < files.length; i++) {
+    //       if (!files[i].type.match("image/.*")) {
+    //         invalidFile("이미지 파일만 업로드 가능합니다.");
+    //         return;
+    //       } else if (files[i].size > MAX_FILE_SIZE) {
+    //         invalidFile("이미지 크기는 2MB를 초과할 수 없습니다.");
+    //         return;
+    //       } 
+    //     }
     
-        setImage(files);
-      };
+    //     setImage(files);
+    //   };
 
 
 
     const config = {
         headers: {
-        'Authorization': sessionStorage.getItem('JWT-TOKEN')}};
+        // "Content-Type": "multipart/form-data",
+        'Authorization': sessionStorage.getItem('JWT-TOKEN'),
+      }};
 
     const writeData = {
         'title' : title, 
@@ -68,29 +81,30 @@ const Write = () => {
     };
 
 
-    const formData = new FormData();
+    // const formData = new FormData();
     // formData.append('writeData', writeData)
+    // formData.append('title', title)
     // formData.append('content', content)
     // formData.append('Authorization', sessionStorage.getItem('JWT-TOKEN'))
-    formData.append('data', new Blob([JSON.stringify(writeData)], {type : "application/json"}));
-    // formData.append('content', new Blob([JSON.stringify(content)], {type : "application/json"}))
-    Array.from(image).forEach(file => formData.append('files', file));
+    // formData.append('writeData', new Blob([JSON.stringify(writeData)], {type : "application/json"}))
+    // formData.append('data', new Blob([JSON.stringify(writeData)], {type : "application/json"}));
+    // Array.from(image).forEach(file => formData.append('files', file));
 
 
 
-    for (const key of formData.keys()) {
-        console.log(key);}
+    // for (const key of formData.keys()) {
+    //     console.log(key);}
 
-        for (const value of formData.values()) {
-            console.log(typeof value);
-          }
+    //     for (const value of formData.values()) {
+    //         console.log(typeof value);
+    //       }
 
 
     const handlerWriteSummit = (e) =>{
         e.preventDefault();
 
 
-        axios.post(`${DB_API_URL}/posts`, formData, config)
+        axios.post(`${DB_API_URL}/posts`, writeData, config)
         .then(
             res =>{ console.log(res)
                 if (res.data.statusCode === 200){
@@ -110,12 +124,12 @@ const Write = () => {
 
     return(<>
 
-        <form className="card" onSubmit={handlerWriteSummit}>
+        <form className="card" onSubmit={handlerWriteSummit} onKeyDown={handleKeyDown}>
             <input className="input-container-title" type="text" value={title} placeholder="제목을 입력해 주세요" onChange={handlerTtileChange}></input>
 
-            <input className="input-container-content" type="text" value ={content} placeholder="내용을 입력해 주세요" onChange={handlerContentChange}></input>
+            <textarea className="input-container-content" type="textarea" value ={content} placeholder="내용을 입력해 주세요" onChange={handlerContentChange}></textarea>
 
-            <input type="file" ref={inputFiles} onChange={handlerChangeFile}></input>
+            {/* <input type="file" ref={inputFiles} onChange={handlerChangeFile}></input> */}
 
             <button type="submit"><FaPencil size={25}/></button>
 

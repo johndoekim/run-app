@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { FaClipboardList } from "react-icons/fa";
 import { MdDeleteForever, MdEditDocument } from "react-icons/md";
 import { SlBookOpen } from "react-icons/sl";
+import NewlineText from "./NewlineText";
 
 
 
@@ -99,7 +100,9 @@ const handlerEditPost = (e) => {
     <span className="date">작성일:{postsData.created_at}</span>
   </div>
   <div className="boardcontent">
-    <p>{postsData.content}</p>
+
+  <NewlineText text={postsData.content} />
+
   </div>
 
   <button onClick={handlerBackList}>

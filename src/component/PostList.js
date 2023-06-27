@@ -26,7 +26,7 @@ export default function PostList({}){
     
     const fetchPosts = (pageNum) => {
         axios
-          .get(`${DB_API_URL}/posts?limit=10&page=${page}`)
+          .get(`${DB_API_URL}/posts?limit=8&page=${page}`)
           .then((res) => {
             const jsonPostsData = JSON.parse(res.data.body);
             setPostsData((prevData) => [...prevData, ...jsonPostsData]);
@@ -38,9 +38,15 @@ export default function PostList({}){
       };
     
       useEffect(() => {
+        if (postsData.length === 0) {
+          setPage(1);
+        }
+      }, [postsData.length]);
+      
+      useEffect(() => {
         fetchPosts(page);
       }, [page]);
-    
+      
       useEffect(() => {
         if (inView) {
           setPage((prevPage) => prevPage + 1);

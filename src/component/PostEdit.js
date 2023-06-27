@@ -63,6 +63,15 @@ const PostEdit = () => {
   {setContent(e.target.value)}
 
 
+  
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && e.target.tagName.toLowerCase() !== 'textarea') {
+      e.preventDefault();
+    }
+  };
+
+
+
 
 
 
@@ -103,9 +112,9 @@ console.log(postsData.title);
     return(<>
 
         <form className="card" onSubmit={handlerEditSummit}>
-            <input className="input-container-title" type="text" value={title} placeholder="제목을 입력해 주세요" onChange={handlerTtileChange}></input>
+            <input className="input-container-title" type="text" value={title} placeholder="제목을 입력해 주세요"  onChange={handlerTtileChange}></input>
 
-            <input className="input-container-content" type="text" value ={content} placeholder="내용을 입력해 주세요" onChange={handlerContentChange}></input>
+            <textarea className="input-container-content" type="textarea" value ={content} placeholder="내용을 입력해 주세요" onKeyDown={handleKeyDown} onChange={handlerContentChange}></textarea>
 
             <button type="submit"><MdEditDocument size={25} /></button>
 
