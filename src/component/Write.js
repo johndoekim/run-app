@@ -59,31 +59,36 @@ const Write = () => {
 
     const config = {
         headers: {
-        'Authorization': sessionStorage.getItem('JWT-TOKEN'),
-        'Content-Type': 'multipart/form-data',},
-      };
+        'Authorization': sessionStorage.getItem('JWT-TOKEN')}};
 
     const writeData = {
-        'title' : title, 'content' : content,
-        'Authorization': sessionStorage.getItem('JWT-TOKEN'),
+        'title' : title, 
+        'content' : content,
+        'Authorization': sessionStorage.getItem('JWT-TOKEN')
     };
 
-    
 
-    // for (const key of formData.keys()) {
-    //     console.log(key);}
+    const formData = new FormData();
+    // formData.append('writeData', writeData)
+    // formData.append('content', content)
+    // formData.append('Authorization', sessionStorage.getItem('JWT-TOKEN'))
+    formData.append('data', new Blob([JSON.stringify(writeData)], {type : "application/json"}));
+    // formData.append('content', new Blob([JSON.stringify(content)], {type : "application/json"}))
+    Array.from(image).forEach(file => formData.append('files', file));
 
-    //     for (const value of formData.values()) {
-    //         console.log(value);
-    //       }
+
+
+    for (const key of formData.keys()) {
+        console.log(key);}
+
+        for (const value of formData.values()) {
+            console.log(typeof value);
+          }
+
 
     const handlerWriteSummit = (e) =>{
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('data', new Blob([JSON.stringify(writeData)], {type : "application/json"}))
-        // formData.append('content', new Blob([JSON.stringify(content)], {type : "application/json"}))
-        Array.from(image).forEach(file => formData.append('files', file));
 
         axios.post(`${DB_API_URL}/posts`, formData, config)
         .then(

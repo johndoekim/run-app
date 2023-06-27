@@ -1,7 +1,11 @@
 .container {
   width: 800px;
   margin: 0 auto;
-  
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .posts_list {
@@ -10,20 +14,34 @@
 }
 
 thead {
-  background-color: #eeeeee;
+  background-color: #dee2e6;
 }
 
 th,
 td {
   padding: 10px;
-  border: 1px solid #dddddd;
+  border: 1px solid #e9ecef;
 }
 
 .title {
-  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s;
 }
 
+.title a {
+  font-size: 18px;
+  font-weight: bold;
+  color: inherit;
+  text-decoration: none;
+}
 
+.title:hover a {
+  color: #007bff;
+}
+
+.clicked a {
+  color: #6c757d;
+}
 
 .card {
   width: 750px;
@@ -58,30 +76,39 @@ td {
 
 .boardwrap {
   width: 800px;
-  margin: 0 auto;}
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-  .detailtitle {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    margin-left: 15px;
-  }
+.detailtitle {
+  display: flex;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 20px 0;
+  border-bottom: 2px solid #dee2e6;
+}
 
-  .nickname {
-    display: flex;
-    font-size: 12px;
-    margin-top: 5px;
-    margin-left: 10px;
-    color: #959595;
-    font-weight: 700;
-  }
+.nickname {
+  display: flex;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 5px;
+  margin-left: 10px;
+  color: #6c757d;
+}
 
-  .date {
-    display: flex;
-    font-size: 12px;
-    margin-left : 15px;
-  }
+.date {
+  display: flex;
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 15px;
+  color: #adb5bd;
+  align-self: flex-end;
+}
 
 
 

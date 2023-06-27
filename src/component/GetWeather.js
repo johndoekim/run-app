@@ -19,7 +19,7 @@ const GetWeather = () => {
   const nowToday = dayjs();
   const {$y, $M, $D , $H, $m} = nowToday;
   const formattedMonth = String($M + 1).padStart(2, '0');
-  const apiFormattedToday = ($H < 2 || ($H === 2 && $m <=9)) ? `${$y}${formattedMonth}${$D -1}`
+  const apiFormattedToday = ($H < 2 || ($H === 2 && $m <=10)) ? `${$y}${formattedMonth}${$D -1}`
   : `${$y}${formattedMonth}${$D}`
 
   const formattedToday= `${$y}${formattedMonth}${$D}`
@@ -107,7 +107,7 @@ return (<>
       .filter(
         (w2) =>
           w2.fcstDate === formattedToday &&
-          (w2.fcstTime === time || w2.fcstTime === String(Number(time) + 100)) &&
+          w2.fcstTime === time  &&
           (w2.category === "POP" ||
             w2.category === "REH" ||
             w2.category === "TMP" ||

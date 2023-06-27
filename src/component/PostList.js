@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import { Link   } from "react-router-dom"
 
 export default function PostList({}){
@@ -10,20 +11,41 @@ export default function PostList({}){
     const [postsData, setPostsData] = useState([]);
 
 
+    const [ref, inView] = useInView();
+
+    const [page, setPage] = useState(1);
+
+    const [clickedPostId, setClickedPostId] = useState(null);
+
+    const handlePostClick = (postId) => {
+    setClickedPostId(postId);
+    };
+
+
+
     
-    useEffect(() => {
-        axios.get(`${DB_API_URL}/posts`)
-        .then(res => {
+    const fetchPosts = (pageNum) => {
+        axios
+          .get(`${DB_API_URL}/posts?limit=10&page=${page}`)
+          .then((res) => {
             const jsonPostsData = JSON.parse(res.data.body);
-            setPostsData(jsonPostsData);
-        })
-        .catch(err => {
+            setPostsData((prevData) => [...prevData, ...jsonPostsData]);
+            console.log(res);
+          })
+          .catch((err) => {
             console.log(err);
-        })
-    }, [])
-
-
-console.log(postsData)
+          });
+      };
+    
+      useEffect(() => {
+        fetchPosts(page);
+      }, [page]);
+    
+      useEffect(() => {
+        if (inView) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      }, [inView]);
 
 
 
@@ -61,17 +83,24 @@ console.log(postsData)
                             return(
                         <tr key={post.post_idx}>
                             <td>{post.post_idx}</td>
-                            <td className="title">
-                                <Link to ={`/posts/${post.post_idx}`}>{post.title}</Link>
-                                </td>
+                            <td className={`title ${clickedPostId === post.post_idx ? 'clicked' : ''}`} 
+                            onClick={() => handlePostClick(post.post_idx)}>
+                            <Link to={`/posts/${post.post_idx}`}>{post.title}</Link>
+                            </td>
                             <td>{post.nickname}</td>
                             <td>{post.created_at}</td>
                         </tr>
+                        
                         )})
+
+                        
                             }
                     </tbody>
                 </table>
+
+                <div ref={ref}></div>
             </div>
+            
 
         </>
     );
