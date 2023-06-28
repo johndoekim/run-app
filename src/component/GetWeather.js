@@ -8,7 +8,6 @@ import dayjs, { Dayjs } from 'dayjs';
 const GetWeather = () => {
 
 
-
   //환경변수
   const SERVICE_KEY = process.env.REACT_APP_SERVICE_KEY;
   const WEATHER_API_URL = process.env.REACT_APP_WEATHER_API_URL;
