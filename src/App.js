@@ -17,6 +17,7 @@ import PrivateRoute from './component/PrivateRoute';
 function App({history}) {
 
 
+  
   const [isLogin, setIsLogin] = useState(false);
   const [showNickname, setShowNickname] = useState('')
 
