@@ -101,6 +101,9 @@ const handlerEditPost = (e) => {
   </div>
   <div className="boardcontent">
 
+
+  <img width={800} src={postsData.image_url}></img>
+
   <NewlineText text={postsData.content} />
 
   </div>
